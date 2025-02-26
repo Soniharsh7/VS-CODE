@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+<body>
+  <div id="main">
+    <div id="left">
+      <div id="filedets">
+        <h3>Folder Name</h3>
+        <div id="icons">
+          <i id="fileicon" class="ri-add-line"></i>
+          <i id="foldericon" class="ri-folder-fill"></i>
+          <a href="/back"><i class="ri-refresh-line"></i></a>
+        </div>
+      </div>
+      <div id="files">
+        <form id="fileform" action="/createfile">
+          <input type="text" name="filename" placeholder="filename">
+        </form>
+        <form id="folderform" action="/createfolder">
+          <input type="text" name="foldername" placeholder="foldername">
+        </form>
+        <% val.forEach(function(el){ %>
+          <div class="elem">
+         <div id="elleft">
+          <% if(el.isDirectory()){ %>
+            <i class="ri-folder-line"></i>
+            <%= el.name %>
+            <% } else{ %>
+              <a id="opened" href="/opened">
+                <i class="ri-file-3-line"></i>
+                <%= el.name %>  
+              </a>
+        <% } %>
+         </div>
+         <div id="elright">
+          <i class="ri-pencil-fill"></i>
+          <% if(el.isDirectory()){ %>
+            <a href="/delete/folder/<%= el.name %>"><i class="ri-delete-bin-line"></i></a>
+          <% } else { %>
+            <a href="/delete/file/<%= el.name %>"><i class="ri-delete-bin-line"></i></a>
+          <% } %>
+         </div>
+        </div>
+     <% }) %> 
+        </div>
+    </div>
+    <div id="right">
+      <div class="rnav">
+        <div class="file"><%= filename %> <a href="/"><i class="ri-close-line"></i></div></a>
+    </div>
+    <form action="/update/<%= filename %>" method="post">
+        <textarea name="data" style="resize: none;" placeholder="Text Here"><%= filedata %></textarea>
+        <input id="submitbtn" type="submit" value="Save File">
+    </form>
+</div>
+</div>
+    </div>
+  </div>
+  <script src="/folder/index.js"></script>
+</body>
+</html>
